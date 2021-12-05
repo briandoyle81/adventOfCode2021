@@ -1,4 +1,4 @@
-with open('test_data.txt', 'r') as file:
+with open('data.txt', 'r') as file:
     data = file.read().split('\n')
 
 # cut trailing newline
@@ -40,17 +40,17 @@ for i in range(2, len(data)):
 # o(n) for number of boards, and there aren't a lot
 
 # calculate score of winning board
-def score(board_number, last_number):
-    board = boards[board_number]
-    marks = marked_spots[board_number]
+def score(board, marks, last_number):
+    # board = boards[board_number]
+    # marks = marked_spots[board_number]
 
     sum = 0
 
     for row in range(len(board)):
         for col in range(len(board[0])):
-            if marks[row][col] == 'x':
+            if marks[row][col] == '.':
                 sum += board[row][col]
-
+    # breakpoint()
     return sum * last_number
 
 def check_for_winner(marks):
@@ -69,72 +69,114 @@ def check_for_winner(marks):
         if ''.join([row[i] for row in marks]) == 'xxxxx':
             return True
 
+    # Failed step 1 of polya - diagonals don't count
     # check diagonals
-    left = ""
-    right = ""
-    for i in range(len(marks)):
-        left += marks[i][i]
-        right += marks[i][len(marks)-1-i]
-    if left == "xxxxx" or right == "xxxxx":
-        return True
+    # left = ""
+    # right = ""
+    # for i in range(len(marks)):
+    #     left += marks[i][i]
+    #     right += marks[i][len(marks)-1-i]
+    # if left == "xxxxx" or right == "xxxxx":
+    #     breakpoint()
+    #     return True
 
     return False
 
 # set up tracking form marked spots
-marked_spots = len(boards) * [5 * [5 * ["."]]]
+# marked_spots = len(boards) * [5 * [5 * ["."]]]
+# stupid is better than fancy #TODO: learn this better
 
+marked_spots = []
 
-test_marks_1 = [
-    ['x', 'x', 'x', 'x', 'x'],
-    ['.', '.', '.', '.', '.'],
-    ['.', '.', '.', '.', '.'],
-    ['.', '.', '.', '.', '.'],
-    ['.', '.', '.', '.', '.']
-]
+for i in range(len(boards)):
+    marked_spots.append([])
+    for _ in range(len(boards[0][0])):
+        marked_spots[i].append(['.', '.', '.', '.', '.'])
 
-test_marks_2 = [
-    ['.', '.', '.', '.', '.'],
-    ['.', '.', '.', '.', '.'],
-    ['.', '.', '.', '.', '.'],
-    ['.', '.', '.', '.', '.'],
-    ['x', 'x', 'x', 'x', 'x']
-]
+# breakpoint()
 
-test_marks_3 = [
-    ['.', '.', '.', '.', 'x'],
-    ['.', '.', '.', '.', 'x'],
-    ['.', '.', '.', '.', 'x'],
-    ['.', '.', '.', '.', 'x'],
-    ['.', '.', '.', '.', 'x']
-]
+# test_marks_1 = [
+#     ['x', 'x', 'x', 'x', 'x'],
+#     ['.', '.', '.', '.', '.'],
+#     ['.', '.', '.', '.', '.'],
+#     ['.', '.', '.', '.', '.'],
+#     ['.', '.', '.', '.', '.']
+# ]
 
-test_marks_4 = [
-    ['.', '.', '.', '.', 'x'],
-    ['.', '.', '.', 'x', '.'],
-    ['.', '.', 'x', '.', '.'],
-    ['.', 'x', '.', '.', '.'],
-    ['.', '.', '.', '.', 'x']
-]
+# test_marks_2 = [
+#     ['.', '.', '.', '.', '.'],
+#     ['.', '.', '.', '.', '.'],
+#     ['.', '.', '.', '.', '.'],
+#     ['.', '.', '.', '.', '.'],
+#     ['x', 'x', 'x', 'x', 'x']
+# ]
 
-test_marks_5 = [
-    ['.', '.', '.', '.', 'x'],
-    ['.', '.', '.', 'x', '.'],
-    ['.', '.', 'x', '.', '.'],
-    ['.', 'x', '.', '.', '.'],
-    ['x', '.', '.', '.', '.']
-]
+# test_marks_3 = [
+#     ['.', '.', '.', '.', 'x'],
+#     ['.', '.', '.', '.', 'x'],
+#     ['.', '.', '.', '.', 'x'],
+#     ['.', '.', '.', '.', 'x'],
+#     ['.', '.', '.', '.', 'x']
+# ]
 
-test_marks_6 = [
-    ['x', '.', '.', '.', '.'],
-    ['.', 'x', '.', '.', '.'],
-    ['.', '.', 'x', '.', '.'],
-    ['.', '.', '.', 'x', '.'],
-    ['.', '.', '.', '.', 'x']
-]
+# test_marks_4 = [
+#     ['.', '.', '.', '.', 'x'],
+#     ['.', '.', '.', 'x', '.'],
+#     ['.', '.', 'x', '.', '.'],
+#     ['.', 'x', '.', '.', '.'],
+#     ['.', '.', '.', '.', 'x']
+# ]
 
-print(check_for_winner(test_marks_1))
-print(check_for_winner(test_marks_2))
-print(check_for_winner(test_marks_3))
-print(check_for_winner(test_marks_4))
-print(check_for_winner(test_marks_5))
-print(check_for_winner(test_marks_6))
+# test_marks_5 = [
+#     ['.', '.', '.', '.', 'x'],
+#     ['.', '.', '.', 'x', '.'],
+#     ['.', '.', 'x', '.', '.'],
+#     ['.', 'x', '.', '.', '.'],
+#     ['x', '.', '.', '.', '.']
+# ]
+
+# test_marks_6 = [
+#     ['x', '.', '.', '.', '.'],
+#     ['.', 'x', '.', '.', '.'],
+#     ['.', '.', 'x', '.', '.'],
+#     ['.', '.', '.', 'x', '.'],
+#     ['.', '.', '.', '.', 'x']
+# ]
+
+# print(check_for_winner(test_marks_1))
+# print(check_for_winner(test_marks_2))
+# print(check_for_winner(test_marks_3))
+# print(check_for_winner(test_marks_4))
+# print(check_for_winner(test_marks_5))
+# print(check_for_winner(test_marks_6))
+
+# Play the boards
+
+winners = set()
+# win_order = []
+
+def play(numbers, boards, marked_spots):
+    for number in numbers:
+        # print(number)
+        for i in range(len(boards)):
+            if i in winners:
+                # print(f'Skipping {i}')
+                continue
+            # look for and mark the numbers
+            for row in range(len(boards[i])):
+                for col in range(len(boards[i][row])):
+                    if boards[i][row][col] == number:
+                        # breakpoint()
+                        marked_spots[i][row][col] = 'x'
+
+            # breakpoint()
+            if check_for_winner(marked_spots[i]):
+                # breakpoint()
+                if len(winners) + 1 == len(boards):
+                    # last winner found
+                    return(score(boards[i], marked_spots[i], number))
+                else:
+                    # breakpoint()
+                    winners.add(i)
+
+print(play(numbers, boards, marked_spots))
