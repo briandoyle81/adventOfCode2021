@@ -47,3 +47,14 @@ Had a gauntlet thrown down.  Part 1 in 5 to 10 minutes or so!
 Part 2 took a bit longer.  Was rushing to compete with a friend and of course
 had lots of typos, etc.  Initially thought that my solution was wrong, then
 I realized I didn't count the score from the right direction.
+
+# 11
+This one was ugly.  Started after driving home after a long weekend.  Spent forever fighting through minor errors in my approach for part 1.
+
+But I got part 2 in less than 5 minutes and less than 5 lines of code!
+
+# 12
+This one was a ton of fun for part 1.  Knew it would be a traversal.  Took a little bit to hone it to produce the correct result.
+
+Part 2 was straightforward but took 30 lines and 30 minutes, mostly because I
+have a hard time with complicated logic statements.
