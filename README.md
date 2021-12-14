@@ -58,3 +58,6 @@ This one was a ton of fun for part 1.  Knew it would be a traversal.  Took a lit
 
 Part 2 was straightforward but took 30 lines and 30 minutes, mostly because I
 have a hard time with complicated logic statements.
+
+# 13
+Pretty simple for part 1, part two was fast and a ton of fun!  Very clever!
