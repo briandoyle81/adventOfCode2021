@@ -1,4 +1,4 @@
-with open('test_data.txt', 'r') as file:
+with open('data.txt', 'r') as file:
     data = file.read().split('\n')
 
 # cut trailing newline
@@ -147,14 +147,14 @@ for key, value in rules.items():
 
 # No of course not, this is the exact same calculation somewhere else
 
-for i in range(5):
-    print(f'PREPROCESSING {i}')
-    to_process = list(subsequences.values())
-    for item in to_process:
-        # print(item)
-        process_sequence(item, 4)
+# for i in range(5):
+#     print(f'PREPROCESSING {i}')
+#     to_process = list(subsequences.values())
+#     for item in to_process:
+#         # print(item)
+#         process_sequence(item, 4)
 
-print("done precalculating subsequences")
+# print("done precalculating subsequences")
 # breakpoint()
 
 # New observation, the most and least at least seem to be constant once
@@ -215,8 +215,122 @@ def find_most_least(polymer):
 
 # print(find_most_least(polymer))
 
-for i in range(40):
-    print(f'STEPS: {i}')
-    polymer = process_sequence(template, i)
-    find_most_least(polymer)
-    breakpoint()
+# for i in range(10):
+#     print(f'STEPS: {i}')
+#     polymer = process_sequence(template, i)
+#     find_most_least(polymer)
+#     # breakpoint()
+
+
+# Not possible to make the polymer so instead cheat
+# Use the production table to produce number in next step without making it
+
+
+
+def create_or_increment_key(dictionary, key, amount):
+    if key not in dictionary:
+        dictionary[key] = amount
+    else:
+        dictionary[key] += amount
+
+
+s = 10
+production_count = {}
+
+pairs = []
+pairs.append({})
+pairs.append({})
+
+for rule in rules:
+    pairs[0][rule] = 0
+
+for i in range(len(template)-1):
+    pairs[0][template[i] + template[i+1]] += 1
+
+for pair, count in pairs[0].items():
+    pairs[1][pair] = None
+# breakpoint()
+
+
+for element in template:
+    create_or_increment_key(production_count, element, 1)
+
+# breakpoint()
+
+# Template:     NNCB
+# After step 1: NCNBCHB
+# After step 2: NBCCNBBBCBHCB
+# After step 3: NBBBCNCCNBBNBNBBCHBHHBCHB
+# After step 4: NBBNBNBBCCNBCNCCNBBNBBNBBBNBBNBBCBHCBHHNHCBBCBHCB
+
+# Pairs: NN NC CB
+
+# Step 0
+# {'N': 2, 'C': 1, 'B': 1}
+
+# Step 1 Add C B H
+# {'N': 2, 'C': 2, 'B': 2, 'H': 1}
+
+# Step 2
+# {'N': 2, 'C': 4, 'B': 6, 'H': 1}
+
+# Step 3
+# {'N': 5, 'C': 5, 'B': 11, 'H': 4}
+
+# n = len(polymer)
+# Length/Sum = = n * 2^x - (2^x - 1)
+# Or just current * 2  -1
+
+# 0 to 1, needing to add 3 can be calculated
+
+# CB -> H
+# NN -> C
+# NC -> B
+# NB -> B
+# BN -> B
+# BC -> B
+# CN -> C
+
+# Maybe figure out possible letters add one each?
+
+# No, CMBN doesn't give an H
+
+front = 0
+back = 1
+
+for _ in range(40):
+    # For each step
+    # dumb way first, start updating the back buffer to equal the front
+    for pair, count in pairs[front].items():
+        pairs[back][pair] = count
+    for pair, count in pairs[front].items():
+        # for each pair in the lst of pairs, that is not 0
+        if count > 0:
+            # print(pair)
+            # breakpoint()
+            new = rules[pair]
+            new_pair_1 = pair[0] + new
+            new_pair_2 = new + pair[1]
+            # breakpoint()
+            create_or_increment_key(production_count, new, count)
+            # breakpoint()
+            pairs[back][new_pair_1] += count
+            pairs[back][new_pair_2] += count
+
+            pairs[back][pair] -= count
+        # else:
+        #     # make sure the back buffer gets written
+        #     pairs[back][pair] = count
+
+    temp = front
+    front = back
+    back = temp
+
+    # print(production_count)
+    # breakpoint()
+
+smallest = min(production_count.values())
+largest = max(production_count.values())
+
+print(f'Result: {largest - smallest}')
+breakpoint()
