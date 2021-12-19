@@ -83,21 +83,21 @@ def reduce(snailfish_number):
     done = False
 
     while not done:
-        print(f"Reducing...")
+        # print(f"Reducing...")
 
         # If any pair nested inside four pairs: explode
         if test_for_explode(snailfish_number):
-            print(f'Exploding: {snailfish_number}')
+            # print(f'Exploding: {snailfish_number}')
             snailfish_number = explode(snailfish_number)
         # else if any regular number is 10 or greater, split
         elif test_for_split(snailfish_number):
-            print(f'Splitting: {snailfish_number}')
+            # print(f'Splitting: {snailfish_number}')
             # breakpoint()
             snailfish_number, _ = process_split(snailfish_number, False)
         # else done
         else:
             done = True
-            print(f'Done: {snailfish_number}')
+            # print(f'Done: {snailfish_number}')
 
         # breakpoint()
 
@@ -254,7 +254,7 @@ def explode(snailfish_number):
             left_brackets -= 1
         elif left_brackets == 5:
             # find the left number
-            print(f'Pair area:{snail_string[left_cursor:left_cursor+5]}')
+            # print(f'Pair area:{snail_string[left_cursor:left_cursor+5]}')
             offset = 0
             left_chars = ''
             num_cursor = left_cursor
@@ -479,4 +479,27 @@ def do_homework(homework):
 
 
 
-print(do_homework(homework))
+# print(do_homework(homework))
+
+
+# Part 2
+
+# Ok this is an exponential problem
+
+def find_max_magnitude(homework):
+    # Just brute force first.  Won't work but try anyway
+
+    max = 0
+
+    for i in range(len(homework)):
+        for k in range(len(homework)):
+            if i == k:
+                continue
+
+            mag = find_magnitude(add(homework[i], homework[k]))
+            if mag > max:
+                max = mag
+
+    return max
+
+print(find_max_magnitude(homework))
