@@ -5,6 +5,8 @@ This readme has spoilers, as of course, does the code within.
 As with before, I might someday use this for students, so I'm not cleaning up my
 final answers.  See inside for a window into how my brain works.
 
+Unedited notes below:
+
 ## 01
 
 
@@ -119,4 +121,59 @@ Ah, I misread the heap docs about what replace does.  I needed to implement a
 priority queue as described in the docs for heapq.
 
 Tough, and wrong entries, but I didn't need help, just research to relearn
-Dijkstr and the docs for Pythons built-in heap.
+Dijkstra and the docs for Pythons built-in heap.
+
+# 16
+So far this one reads as though the challenge is how to write code when the
+person who gave you the spec is gaslighting you.  I think they accidentally a
+sentence or two.
+
+Pretty easy once the massive reading comprehension effort was done.
+
+Bad submission for part because I made the bad choice to not fix the bad switch
+implementation I found online.
+
+# 17
+This one is a ton of fun!  But I'm not sure how you can exclude a ceiling for
+velocity.  It seems to be that with infinitely increasing Y, even though the
+velocity from gravity increases makes a miss more likely, I don't see how with
+infinite height you can't always find a higher hit.
+
+I tested out to Y velocity of 10000 for part 1, which was slow, and I wasn't
+confident when I submitted.  Right the first time, but not confidently.
+
+My try everything algo is missing two hits in the first try for part 2...
+
+Debugging by comparing to the results data given.
+
+{(7, -1), (6, 0)} are misses for some reason, testing manually.
+
+Got lucky here!  Was comparing Y misses against the higher Y range, not lower!
+
+Got part 2 on the first submission as well, but I'm really not 100% satisfied
+that there aren't a few higher options up somewhere...
+
+# 18
+This one has been pretty terrible.  Explode seems like it should be simple, but
+it's completely awful.
+
+I'm going to have to abandon this one for now.
+
+Couldn't stay away, revisited string explode attempt.  Seemed to get it to work,
+it handles the first addition case fine, and gets a result, but the result is
+wrong for the first addition problem in the small and regular test cases.
+
+Good news, my explode _finally_ seems to be working.  It's a mess, but it works.
+
+Bad news, my beautiful, elegant, intuitive, recursive split doesn't work.  It
+splits them all at once.  Which makes me wonder if a previous iteration of
+explode worked?
+
+In any case, that was easy to fix, but my elation has turned quickly to horror
+in remembering this is only part 1.
+
+Mercifully, the stupid, brute force way worked!  About 5 lines, < 5 minutes.
+
+Success!?!?!
+
+# 19

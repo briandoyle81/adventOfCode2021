@@ -1,12 +1,28 @@
 from os import read
 
-with open('test_data.txt', 'r') as file:
+with open('data.txt', 'r') as file:
     data = file.read().split('\n')
 
 # cut trailing newline
 data.pop(-1)
 
 # Further data processing
+
+
+# parse the test results for debugging Part 2
+# with open('test_results.txt', 'r') as file:
+#     test_data = file.read().split('\n')
+
+# test_data.pop(-1)
+# test_set = set()
+
+# for line in test_data:
+#     split_line = line.split()
+#     for pair in split_line:
+#         split_pair = pair.split(',')
+#         test_set.add((int(split_pair[0]), int(split_pair[1])))
+
+# breakpoint()
 
 data[0] = data[0][13:]
 
@@ -25,13 +41,13 @@ y_range = [int(e) for e in x_y[1].split('..')]
 
 def move_probe(position, velocity, x_range, y_range):
     new_position = (position[0] + velocity[0], position[1] + velocity[1])
-    # print(new_position)
+    # print(new_position, x_range, y_range)
     # breakpoint()
 
     if (new_position[0] >= x_range[0] and new_position[0] <= x_range[1] and
         new_position[1] >= y_range[0] and new_position[1] <= y_range[1]):
         result = 'hit'
-    elif new_position[0] > x_range[1] or new_position[1] < y_range[1]:
+    elif new_position[0] > x_range[1] or new_position[1] < y_range[0]:
         result = 'miss'
     else:
         result = 'continue'
@@ -45,6 +61,8 @@ def fire_shot(velocity, x_range, y_range):
 
     while result == 'continue':
         position, result = move_probe(position, velocity, x_range, y_range)
+        # print(position, velocity, x_range, y_range)
+        # breakpoint()
         if position[1] > max_y:
             max_y = position[1]
 
@@ -61,10 +79,11 @@ def fire_shot(velocity, x_range, y_range):
 
     return result, max_y, velocity
 
-# print(fire_shot([7, 9], x_range, y_range))
+# print(fire_shot([7, -1], x_range, y_range))
 
 # n^2 Solution
-
+# Updating for part 2 since we need all
+# Probably could still calculate all possible X's first
 def find_peak(max, x_range, y_range):
     max_y = 0
     max_y_velocity = None
@@ -82,10 +101,13 @@ def find_peak(max, x_range, y_range):
 
             if result == 'hit':
                 valid_count += 1
+                # test_set.remove((i, k))
                 if shot_max_y > max_y:
                     max_y = shot_max_y
                     max_y_velocity = (i, k)
                     max_y_final_velocity = shot_velocity
+
+    # breakpoint()
     # Add valid count for part 2
     return valid_count, max_y, max_y_velocity, max_y_final_velocity
 
