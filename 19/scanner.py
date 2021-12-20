@@ -159,6 +159,9 @@ for coords in scanners['scanner 0'][3]:
 
 # find_coord_rotations((404,-588,-901))
 
+scanner_positions = {}
+scanner_positions['scanner 0'] = (0, 0, 0)
+
 while len(missing_scanners) > 0:
     print(len(missing_scanners))
     for scanner_name in missing_scanners:
@@ -231,6 +234,8 @@ while len(missing_scanners) > 0:
                             # remove this scanner from missing and add to found
                             found_scanners.add(scanner_name)
                             missing_scanners.remove(scanner_name)
+                            # The offset is this scanner's position relative to 0 at 0,0,0
+                            scanner_positions[scanner_name] = offset
                             # breakpoint()
                             break
 
@@ -255,3 +260,40 @@ while len(missing_scanners) > 0:
 
 
 print(len(found_beacons))
+
+# Part 2:
+
+# Find Largest Manhatten Distance
+
+# Largest X + Y + Z Distance
+
+# Brute force is exponential, compare all to all.  Won't be possible with
+# 335 beacons
+# Except we need the scanner positions.  So it's 28.
+
+# No it's polynomial, very doable with 28
+
+# scanner 0 (0, 0, 0)
+# scanner 1 (-68, 1246, 43)
+# scanner 4 (20, 1133, -1061)
+# scanner 2 (-1105, 1205, -1229)
+# scanner 3 (92, 2380, 20)
+
+# breakpoint()
+
+print("Finding Manhattan")
+
+def find_manhattan(first, second):
+    return sum([abs(first[0] - second[0]), abs(first[1] - second[1]), abs(first[2] - second[2])])
+
+# Just brute force it n^2
+
+max_distance = 0
+
+for first, first_coords in scanner_positions.items():
+    for second, second_coords in scanner_positions.items():
+        distance = find_manhattan(first_coords, second_coords)
+        if distance > max_distance:
+            max_distance = distance
+
+print(max_distance)
