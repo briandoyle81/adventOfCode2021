@@ -172,8 +172,26 @@ explode worked?
 In any case, that was easy to fix, but my elation has turned quickly to horror
 in remembering this is only part 1.
 
-Mercifully, the stupid, brute force way worked!  About 5 lines, < 5 minutes.
+Mercifully, the stupid, brute force way worked!  About 5 lines, < 5 minutes to implement.
 
 Success!?!?!
 
 # 19
+A very fun but very hard 1.  For part 1 I did optimized brute force.
+Pre-calculate what I could and store it in sets for fast lookup.  The result is
+a pretty bad polynomial complexity, but doable with this data size.
+
+For part two, the first part was to store the scanner positions, which is just
+the offsets in part 1.  Then it's easy just to do an n^2 comparison and find the
+longest.
+
+# 20
+
+This was a ton of fun.  I did the virtual conway solution like last year, but
+got my first submission wrong because it was hard to handle the inversion in the
+real enhancement algorithm that isn't in the test data set.
+
+I ended up solving it by inverting the "lit" pixels every other step to avoid
+adding infinity to the lit set.
+
+Aced Part II!!!  Just needed to change the parameter from 2 to 50 to get it!
