@@ -187,7 +187,7 @@ longest.
 
 # 20
 
-This was a ton of fun.  I did the virtual conway solution like last year, but
+This was a ton of fun.  I did the virtual Conway solution like last year, but
 got my first submission wrong because it was hard to handle the inversion in the
 real enhancement algorithm that isn't in the test data set.
 
@@ -195,3 +195,16 @@ I ended up solving it by inverting the "lit" pixels every other step to avoid
 adding infinity to the lit set.
 
 Aced Part II!!!  Just needed to change the parameter from 2 to 50 to get it!
+
+# 21
+
+Part 1 was super easy.  Took maybe 20 minutes.  This is scary!
+
+Oh my part 2 :D
+
+It actually didn't end up being too bad.  I had the approach right away of
+counting in groups of similar games and calculating by the possible roll totals
+and how many combos for each, but my first pass was too slow because I treated
+each combo of position and score as unique (well, I forgot to track position at
+first then added it in).  By nesting scores inside position, I got it to be very
+fast.
