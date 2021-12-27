@@ -172,7 +172,8 @@ explode worked?
 In any case, that was easy to fix, but my elation has turned quickly to horror
 in remembering this is only part 1.
 
-Mercifully, the stupid, brute force way worked!  About 5 lines, < 5 minutes to implement.
+Mercifully, the stupid, brute force way worked!  About 5 lines, < 5 minutes to
+implement.
 
 Success!?!?!
 
@@ -208,3 +209,22 @@ and how many combos for each, but my first pass was too slow because I treated
 each combo of position and score as unique (well, I forgot to track position at
 first then added it in).  By nesting scores inside position, I got it to be very
 fast.
+
+# 22
+
+I think part 1 _should_ be fairly easy by using a virtual grid approach like
+before.  My guess is that part 2 will be oh, don't ignore after 50, it's 50k
+big.
+
+Oh, actually that might not work.  The last two steps in the example complicate
+things.
+
+Went ahead and did part 1 with the set of coordinates.  It was a little slow,
+probably won't work for part 2, even though the time complexity is linear for N
+of total number of cubes changed.
+
+It did not work for part 2.  Went with an OOP method tracking cubes, and then
+sub-cubes removed from those cubes.
+
+It was much faster, but I spent hours chasing an bug that made me doubt reality.
+It was a copy/paste error.  I should really listen to my own advice more...
